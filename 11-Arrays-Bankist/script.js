@@ -91,6 +91,32 @@ const displayMovement = function (movements) {
 displayMovement(account1.movements);
 // Calls the above function for account1
 
+// const user = "Steven Thomas Williams"; // We want to call this user "stw"
+// const username = user
+//   .toLowerCase()
+//   // "steven thomas williams"
+//   .split(" ")
+//   // ["steven", "thomas", "williams"]
+//   .map((name) => name[0])
+//   // ["s", "t", "w"]
+//   .join("");
+//   // "stw"
+// // Turns the string to lower case, then splits it in 3 different words using the space character. Then we use map method to return a new array with only the first letter of each word (arrow function). Then join to put it together into one string.
+
+const createUsernames = function (accounts) {
+  accounts.forEach(function (account) {
+    account.username = account.owner
+      .toLowerCase()
+      .split(" ")
+      .map((name) => name[0])
+      .join("");
+  });
+  // For each account in the "accounts" array we take the "owner" property, turn it into a username which is the first letters of the name in lowercase, then store it back into the object as a new "username" property.
+};
+
+console.log(createUsernames(accounts));
+console.log(accounts);
+
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
 // LECTURES
@@ -101,7 +127,7 @@ displayMovement(account1.movements);
 //   ["GBP", "Pound sterling"],
 // ]);
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 
@@ -224,3 +250,27 @@ const checkDogs = function (juliaDogs, kateDogs) {
 
 checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
 */
+/*
+const eurToUsd = 1.1;
+
+const movementsUsd = movements.map((mov) => mov * eurToUsd);
+
+console.log(movements);
+console.log(movementsUsd);
+
+const movementsDescriptions = movements.map(
+  (movement, i) =>
+    `Movement ${i + 1}: you ${
+      movement > 0 ? "deposited" : "withdrew"
+    } ${Math.abs(movement)}`
+);
+*/
+
+const deposits = movements.filter((mov) => mov > 0);
+const withdrawals = movements.filter((mov) => mov < 0);
+// Accumulator -> snowball effect
+const balance = movements.reduce(function (accumulator, element, index, array) {
+  return accumulator + element;
+}, 0);
+
+console.log(deposits, withdrawals, balance);
