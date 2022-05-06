@@ -78,7 +78,7 @@ const displayMovement = function (movements) {
       <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov}€</div>
     </div>
     `;
     // The HTML code that we need to add to the DOM for each element of the array, saved into a variable
@@ -98,6 +98,24 @@ const calcPrintBalance = function (movements) {
   labelBalance.textContent = `${balance} EUR`;
 };
 calcPrintBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  const incomes = movements
+    .filter((mov) => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+  const expenses = movements
+    .filter((mov) => mov < 0)
+    .reduce((acc, mov) => acc - mov, 0);
+  labelSumOut.textContent = `${expenses}€`;
+  const interest = movements
+    .filter((mov) => mov > 0)
+    .map((deposit) => (deposit * 1.2) / 100)
+    .filter((int) => int >= 1)
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+calcDisplaySummary(account1.movements);
 
 // const user = "Steven Thomas Williams"; // We want to call this user "stw"
 // const username = user
@@ -327,3 +345,58 @@ console.log(
   calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4])
 );
 */
+
+// --- Chaining methods ---
+const eurToUsd = 1.1;
+const totalDepositsUSD = movements
+  .filter((mov) => mov > 0)
+  .map((mov) => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0);
+console.log(totalDepositsUSD);
+
+// --- Creating dates ---
+
+// Create a date
+const now = new Date();
+console.log(now);
+
+console.log(new Date("Aug 02 2020 18:05:41"));
+console.log(new Date("December 24, 2015"));
+// console.log(new Date(account1.movementDates[0]));
+console.log(new Date(2037, 10, 19, 15, 23, 5));
+console.log(new Date(2037, 10, 31));
+console.log(new Date(0)); // This is unix 0 date
+console.log(new Date(3 * 24 * 60 * 60 * 1000)); // Create a date that is 3 days after the 0 date. It reads "3 days * 24 hours * 60 minutes * 60 seconds * 1000 milliseconds". The operation returns "259200000", which is called timestamp
+
+// Working with dates
+const future = new Date(2037, 10, 19, 15, 23);
+console.log(future);
+console.log(future.getFullYear());
+console.log(future.getMonth());
+console.log(future.getDate()); // day of the month
+console.log(future.getDay()); // day of the week
+console.log(future.getHours());
+console.log(future.getMinutes());
+console.log(future.getSeconds());
+console.log(future.toISOString());
+console.log(future.getTime());
+
+console.log(new Date(588207600000)); // Mon Aug 22 1988 00:00:00 GMT+0100 (British Summer Time)
+
+console.log(Date.now());
+
+future.setFullYear(2040);
+console.log(future);
+
+// const birthDate = new Date(1988, 7, 22);
+
+// console.log(birthDate); // Mon Aug 22 1988 00:00:00 GMT+0100 (British Summer Time)
+// console.log(birthDate.getFullYear()); // 1988
+// console.log(birthDate.getMonth()); // 7 (zero-based)
+// console.log(birthDate.getDate()); // 22 (day of the month)
+// console.log(birthDate.getDay()); // 1 (day of the week)
+// console.log(birthDate.getHours()); // 0
+// console.log(birthDate.getMinutes()); // 0
+// console.log(birthDate.getSeconds()); // 0
+// console.log(birthDate.toISOString()); // 1988-08-21T23:00:00.000Z
+// console.log(birthDate.getTime()); // 588207600000
