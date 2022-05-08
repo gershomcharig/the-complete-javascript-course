@@ -400,3 +400,15 @@ console.log(future);
 // console.log(birthDate.getSeconds()); // 0
 // console.log(birthDate.toISOString()); // 1988-08-21T23:00:00.000Z
 // console.log(birthDate.getTime()); // 588207600000
+
+// --- Operations with dates ---
+
+console.log(+future);
+
+const calcDaysPassed = (date1, date2) =>
+  Math.abs(date2 - date1) / (1000 * 60 * 60 * 24);
+
+const days1 = calcDaysPassed(new Date(2037, 3, 14), new Date(2037, 3, 4));
+console.log(days1);
+
+// --- Internationalising dates ---
